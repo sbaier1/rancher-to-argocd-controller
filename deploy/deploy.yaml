@@ -102,3 +102,9 @@ spec:
               value: "dev"
             - name: RANCHER_URI
               value: "https://rancher.example.com"
+            # derive argocd clusters from rancher clusters using the bootstrap admin token
+            - name: ENABLE_HOOK_RANCHER_CLUSTERS_TO_ARGOCD_CLUSTERS
+              value: "false"
+            # derive argocd clusters from rancher cluster objects using the pre-existing fleet kubeconfig tokens
+            - name: ENABLE_HOOK_FLEET_CLUSTERS_TO_ARGOCD_CLUSTERS
+              value: "false"
