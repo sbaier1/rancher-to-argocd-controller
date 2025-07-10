@@ -20,6 +20,22 @@ rules:
       - "get"
       - "watch"
       - "list"
+  # If you want to use the fleet hook
+  - apiGroups:
+      - fleet.cattle.io
+    resources:
+      - "clusters"
+    verbs:
+      - "get"
+      - "watch"
+      - "list"
+  # For retrieving the kubeconf secret, typically in fleet-default namespace
+  - apiGroups:
+      - ""
+    resources:
+      - "secrets"
+    verbs:
+      - "get"
 # if you want it to automatically fetch secret data from another namespace
 # ie: rancher tls ca
 #  - apiGroups:

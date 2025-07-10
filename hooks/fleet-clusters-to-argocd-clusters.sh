@@ -57,7 +57,7 @@ if [[ -z "${ENVIRONMENT_ID}" ]]; then
 fi
 
 # Get all clusters from provisioning API
-CLUSTERS=$(kubectl get clusters.provisioning.cattle.io -o json -n "${FLEET_NAMESPACE}")
+CLUSTERS=$(kubectl get clusters.fleet.cattle.io -o json -n "${FLEET_NAMESPACE}")
 
 # iterate through all provisioning clusters
 echo $CLUSTERS | jq -crM '.items[]' | while read -r cluster; do
@@ -131,6 +131,9 @@ echo $CLUSTERS | jq -crM '.items[]' | while read -r cluster; do
   # Extract CA data from the kubeconfig
   CA_DATA=$(echo "${KUBECONFIG_VALUE}" | grep 'certificate-authority-data:' | awk '{print $2}')
   
+  # Get the cluster labels
+  clusterLabels=$(echo "${cluster}" | yq eval '.metadata.labels' - -P | sed "s/^/    /g")
+  
   # Create ArgoCD cluster secret
   SECRET_YAML=$(
     cat <<EOF
@@ -140,6 +143,7 @@ kind: Secret
 metadata:
   name: ${SECRET_NAME_PREFIX}${clusterResourceName}${SECRET_NAME_SUFFIX}
   labels:
+${clusterLabels}
     argocd.argoproj.io/secret-type: cluster
     clusterId: "${clusterDisplayName}"
     environmentId: "${ENVIRONMENT_ID}"
