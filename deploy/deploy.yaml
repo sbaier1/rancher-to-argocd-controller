@@ -121,6 +121,7 @@ spec:
             # derive argocd clusters from rancher clusters using the bootstrap admin token
             - name: ENABLE_HOOK_RANCHER_CLUSTERS_TO_ARGOCD_CLUSTERS
               value: "false"
-            # derive argocd clusters from rancher cluster objects using the pre-existing fleet kubeconfig tokens
-            - name: ENABLE_HOOK_FLEET_CLUSTERS_TO_ARGOCD_CLUSTERS
+            # derive argocd clusters from cluster.fleet.cattle.io instead of using the admin token. 
+            # this mode will also apply the labels from the original fleet cluster object to ArgoCD clusters.
+            - name: FLEET_MODE
               value: "false"

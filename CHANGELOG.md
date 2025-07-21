@@ -1,3 +1,8 @@
+# v0.5.0
+
+- add support for deriving ArgoCD clusters from fleet clusters instead (set FLEET_MODE="true")
+- add support for omitting cluster name prefix (set SERVER_NAME_PREFIX="NONE")
+
 # v0.4.3
 
 Released 2025-06-24
